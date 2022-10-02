@@ -1,0 +1,9 @@
+function n = water_refractive_index(lambda)
+% lambda in um
+lambda2 = lambda.^2;
+n2 = 1 + (5.672526103e-1 * lambda2) ./ (lambda2 - 5.085550461e-3) + ...
+    (1.736581125e-1 * lambda2) ./ (lambda2 - 1.814938654e-2) + ...
+    (2.121531502e-2 * lambda2) ./ (lambda2 - 2.617260739e-2) + ...
+    (1.138493213e-1 * lambda2) ./ (lambda2 - 1.073888649e1);
+n = sqrt(n2);
+end
