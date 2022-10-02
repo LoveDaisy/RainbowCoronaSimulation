@@ -22,6 +22,6 @@ for i = 1:length(lambda)
     intensity(:, i) = curr_intensity;
 end
 if p.Results.SunSize > 0
-    intensity = imfilter(intensity, smoothing_kernel(:), 'same', 'replicate');
+    intensity = imfilter(intensity, smoothing_kernel(:), 'same', 'symmetric');
 end
 end

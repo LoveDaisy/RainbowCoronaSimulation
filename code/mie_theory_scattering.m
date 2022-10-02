@@ -93,8 +93,8 @@ zeta_x_curr = sqrt(pi * x / 2) .* besselh(1.5, 2, x);
 psi_y_prev = sqrt(pi * y / 2) .* besselj(0.5, y);
 psi_y_curr = sqrt(pi * y / 2) .* besselj(1.5, y);
 
-P_n_prev = ones(size(mu));
-P_n_curr = mu;
+pi_n_prev = zeros(size(mu));
+pi_n_curr = ones(size(mu));
 
 S1 = 0;
 S2 = 0;
@@ -102,10 +102,9 @@ ab0 = [];
 Q_sct = 0;
 Q_ext = 0;
 N_MAX = 300000;
+% N_MAX = ceil(x + 4 * nthroot(x, 3) + 2);
 for n = 1:N_MAX
-    k = n ./ (mu.^2 - 1);
-    pi_n = k .* (mu .* P_n_curr - P_n_prev);
-    tau_n = k .* ((1 + n - n * mu) .* P_n_curr - mu .* P_n_prev);
+    tau_n_curr = n * mu .* pi_n_curr - (n + 1) * pi_n_prev;
     
     dpsi_x = -n ./ x .* psi_x_curr + psi_x_prev;
     dzeta_x = -n ./ x .* zeta_x_curr + zeta_x_prev;
@@ -126,13 +125,13 @@ for n = 1:N_MAX
         break;
     end
 
-    S1 = S1 + (2 * n + 1) / (n * (n + 1)) .* (an .* pi_n + bn .* tau_n);
-    S2 = S2 + (2 * n + 1) / (n * (n + 1)) .* (bn .* pi_n + an .* tau_n);
-   
-    P_n = ((2 * n + 1) * mu .* P_n_curr - n * P_n_prev) / (n + 1);
-    P_n_prev = P_n_curr;
-    P_n_curr = P_n;
+    S1 = S1 + (2 * n + 1) / (n * (n + 1)) .* (an .* pi_n_curr + bn .* tau_n_curr);
+    S2 = S2 + (2 * n + 1) / (n * (n + 1)) .* (bn .* pi_n_curr + an .* tau_n_curr);
 
+    pi_n = ((2 * n + 1) * mu .* pi_n_curr - (n + 1) * pi_n_prev) ./ n;
+    pi_n_prev = pi_n_curr;
+    pi_n_curr = pi_n;
+   
     psi_x = (2 * n + 1) ./ x .* psi_x_curr - psi_x_prev;
     psi_x_prev = psi_x_curr;
     psi_x_curr = psi_x;

@@ -5,7 +5,7 @@ lambda = 0.65;   % in um
 m = 1.332;
 dq = 0.01;
 % theta = 137:.01:145;
-theta = 0:dq:20;
+theta = 130:dq:180;
 
 [intensity, Q_sct, Q_ext] = mie_theory_scattering(a, m, lambda, theta);
 smoothing_kernel = sqrt(1 - ((-0.25:dq:0.25) / 0.25).^2);
