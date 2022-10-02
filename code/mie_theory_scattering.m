@@ -3,7 +3,7 @@ function [intensity, Q_sct, Q_ext] = mie_theory_scattering(drop_radius, refracti
 %   psi_n(z) = sqrt(pi * z / 2) * J_{n+1/2}(z)
 %   chi_n(z) = (-1)^n * sqrt(pi * z / 2) * J_{-(n+1/2)}(z)
 %
-% They are related to SphericalBesselJ (spherical Bessel function of the first kind) and 
+% They are related to SphericalBesselJ (spherical Bessel function of the first kind) and
 % SphericalBesselY (spherical Bessel function of the second kind) function in mathematica
 %   j_n(z) = sqrt(pi / 2 / z) * J_{n+1/2}(z)
 %   y_n(z) = sqrt(pi / 2 / z) * Y_{n+1/2}(z)
@@ -61,7 +61,7 @@ for n = 1:N_MAX
     ab = abs(an).^2 + abs(bn).^2;
     Q_sct = Q_sct + (2 * n + 1) * ab;
     Q_ext = Q_ext + (2 * n + 1) * real(an + bn);
-    
+
     if isempty(ab0)
         ab0 = ab;
     end
@@ -105,11 +105,11 @@ N_MAX = 300000;
 % N_MAX = ceil(x + 4 * nthroot(x, 3) + 2);
 for n = 1:N_MAX
     tau_n_curr = n * mu .* pi_n_curr - (n + 1) * pi_n_prev;
-    
+
     dpsi_x = -n ./ x .* psi_x_curr + psi_x_prev;
     dzeta_x = -n ./ x .* zeta_x_curr + zeta_x_prev;
     dpsi_y = -n ./ y .* psi_y_curr + psi_y_prev;
-    
+
     an = (dpsi_y .* psi_x_curr - m * psi_y_curr .* dpsi_x) ./ ...
         (dpsi_y .* zeta_x_curr - m * psi_y_curr .* dzeta_x);
     bn = (m * dpsi_y .* psi_x_curr - psi_y_curr .* dpsi_x) ./ ...
@@ -117,7 +117,7 @@ for n = 1:N_MAX
     ab = abs(an).^2 + abs(bn).^2;
     Q_sct = Q_sct + (2 * n + 1) * ab;
     Q_ext = Q_ext + (2 * n + 1) * real(an + bn);
-    
+
     if isempty(ab0)
         ab0 = ab;
     end
@@ -131,7 +131,7 @@ for n = 1:N_MAX
     pi_n = ((2 * n + 1) * mu .* pi_n_curr - (n + 1) * pi_n_prev) ./ n;
     pi_n_prev = pi_n_curr;
     pi_n_curr = pi_n;
-   
+
     psi_x = (2 * n + 1) ./ x .* psi_x_curr - psi_x_prev;
     psi_x_prev = psi_x_curr;
     psi_x_curr = psi_x;
