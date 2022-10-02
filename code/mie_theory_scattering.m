@@ -103,8 +103,9 @@ Q_sct = 0;
 Q_ext = 0;
 N_MAX = 300000;
 for n = 1:N_MAX
-    pi_n = n ./ (mu.^2 - 1) .* (mu .* P_n_curr - P_n_prev);
-    tau_n = n ./ (mu.^2 - 1) .* ((1 + n - n * mu) .* P_n_curr - mu .* P_n_prev);
+    k = n ./ (mu.^2 - 1);
+    pi_n = k .* (mu .* P_n_curr - P_n_prev);
+    tau_n = k .* ((1 + n - n * mu) .* P_n_curr - mu .* P_n_prev);
     
     dpsi_x = -n ./ x .* psi_x_curr + psi_x_prev;
     dzeta_x = -n ./ x .* zeta_x_curr + zeta_x_prev;

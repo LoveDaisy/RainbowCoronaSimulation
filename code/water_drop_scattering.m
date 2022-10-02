@@ -17,7 +17,6 @@ end
 
 intensity = zeros(length(theta), length(lambda));
 for i = 1:length(lambda)
-    fprintf('Computing lambda %.3fum, #%d/%d\n', lambda(i), i, length(lambda));
     curr_intensity = mie_theory_scattering(a, m(i), lambda(i), theta);
     curr_intensity = curr_intensity / sum(curr_intensity);
     intensity(:, i) = curr_intensity;

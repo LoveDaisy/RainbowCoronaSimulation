@@ -2,7 +2,7 @@ clear; close all; clc;
 
 dq = 0.01;
 theta = (137:dq:145)';
-a_store = 10.^(1:.02:3);     % drop radii, in um
+a_store = 10.^(1:.002:3);     % drop radii, in um
 
 lee_diagram = zeros(length(theta), length(a_store), 3);
 for ai = 1:length(a_store)
@@ -18,13 +18,13 @@ for ai = 1:length(a_store)
     sun_spec = sun_spec / sum(sun_spec);
 
     intensity = water_drop_scattering(a, lambda, theta, 'SunSize', 0.5);
-    intensity = intensity ./ max(intensity);
+%     intensity = intensity ./ max(intensity(:));
 
-    colors = spec_to_rgb([lambda(:) * 1000, intensity' .* sun_spec' * 5e-3 * lambda_num], 'Y', -1);
+    colors = spec_to_rgb([lambda(:) * 1000, intensity' .* sun_spec' * 2 * lambda_num], 'Y', -1);
     lee_diagram(:, ai, :) = reshape(colors, [], 1, 3);
 
     figure(1); clf;
-    set(gcf, 'Position', [500, 20, 400, 800]);
+    set(gcf, 'Position', [500, 20, 500, 800]);
     set(gca, 'Position', [.1, .05, .8, .9]);
     imagesc(log10(a_store), theta, lee_diagram);
 
@@ -39,7 +39,7 @@ end
 
 %%
 figure(1); clf;
-set(gcf, 'Position', [500, 20, 400, 800]);
+set(gcf, 'Position', [500, 20, 500, 800]);
 set(gca, 'Position', [.1, .05, .8, .9]);
 imagesc(log10(a_store), theta, lee_diagram);
 
