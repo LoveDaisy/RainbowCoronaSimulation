@@ -96,8 +96,10 @@ psi_y_curr = sqrt(pi * y / 2) .* besselj(1.5, y);
 pi_n_prev = zeros(size(mu));
 pi_n_curr = ones(size(mu));
 
-S1 = 0;
-S2 = 0;
+S1_real = 0;
+S1_imag = 0;
+S2_real = 0;
+S2_imag = 0;
 ab0 = [];
 Q_sct = 0;
 Q_ext = 0;
@@ -125,10 +127,17 @@ for n = 1:N_MAX
         break;
     end
 
-    S1 = S1 + (2 * n + 1) / (n * (n + 1)) .* (an .* pi_n_curr + bn .* tau_n_curr);
-    S2 = S2 + (2 * n + 1) / (n * (n + 1)) .* (bn .* pi_n_curr + an .* tau_n_curr);
+    k = (2 * n + 1) / (n * (n + 1));
+    an_real = real(an);
+    an_imag = imag(an);
+    bn_real = real(bn);
+    bn_imag = imag(bn);
+    S1_real = S1_real + k .* (an_real .* pi_n_curr + bn_real .* tau_n_curr);
+    S1_imag = S1_imag + k .* (an_imag .* pi_n_curr + bn_imag .* tau_n_curr);
+    S2_real = S2_real + k .* (bn_real .* pi_n_curr + an_real .* tau_n_curr);
+    S2_imag = S2_imag + k .* (bn_imag .* pi_n_curr + an_imag .* tau_n_curr);
 
-    pi_n = ((2 * n + 1) * mu .* pi_n_curr - (n + 1) * pi_n_prev) ./ n;
+    pi_n = (2 * n + 1) / n * mu .* pi_n_curr - (n + 1) / n * pi_n_prev;
     pi_n_prev = pi_n_curr;
     pi_n_curr = pi_n;
 
@@ -144,6 +153,8 @@ for n = 1:N_MAX
     zeta_x_prev = zeta_x_curr;
     zeta_x_curr = zeta_x;
 end
+S1 = S1_real + 1i * S1_imag;
+S2 = S2_real + 1i * S2_imag;
 intensity = (abs(S1).^2 + abs(S2).^2);
 Q_sct = Q_sct * 2 ./ x.^2;
 Q_ext = Q_ext * 2 ./ x.^2;
