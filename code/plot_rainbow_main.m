@@ -40,3 +40,22 @@ set(gca, 'ytick', [], 'ycolor', 'none');
 ylabel('Radius (um)', 'fontsize', 16, 'color', 'k', 'Visible', 'on');
 
 saveas(gcf, '../img/rainbow_radius_angle.png');
+
+%%
+lee_diagram_img = imread('../img/lee_diagram_data_a0010-1000_q137-145.png');
+theta_num = size(lee_diagram_img, 1);
+a_num = size(lee_diagram_img, 2);
+
+figure(2); clf;
+set(gcf, 'Position', [400, 300, 900, 600]);
+axes('Position', [0.1, 0.12, 0.85, 0.85]);
+imagesc((0:a_num-1)/(a_num-1)*2 + 1, (0:theta_num-1)/(theta_num-1)*8 + 137, lee_diagram_img);
+axis off;
+axes('Position', [0.1, 0.12, 0.85, 0.85], 'Color', 'none');
+box on;
+set(gca, 'ylim', [137, 145], 'xlim', [10, 1000]/1000, 'xscale', 'log', 'tickdir', 'out', ...
+    'fontsize', 12);
+xlabel('Radius (mm)', 'fontsize', 16);
+ylabel('Scattering angle (degree)', 'fontsize', 16);
+
+saveas(gcf, '../img/lee_137-145.png');

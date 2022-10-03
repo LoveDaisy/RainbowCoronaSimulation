@@ -17,6 +17,10 @@ when drop size is small, diffraction and interference are getting significant, a
 
 ![rainbow and drop size](img/rainbow_radius_angle.png)
 
+Lee [2] proposed a diagram that described the color changing with water drop size, called Lee diagram.
+
+![rainbow Lee diagram](img/lee_137-145.png)
+
 ## Reference
 
 [1] Laven, Philip. "Simulation of rainbows, coronas, and glories by use of Mie theory." Applied optics 42.3 (2003): 436-444.
