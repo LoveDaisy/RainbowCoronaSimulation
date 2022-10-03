@@ -30,10 +30,9 @@ S_2(\theta) &= \sum_{n=1}^{\infty} \frac{2n+1}{n(n+1)}\big(a_n\tau_n(\cos\theta)
 \end{aligned}
 $$
 
-==where $\pi_n(x) = P'_n(x)$, $\tau_n(x)=x\pi_n(x)-(1-x^2) \pi'_n(x)$, and $P_n(x)$ is n-th order Legendre function.==
-(It seems to be wrong. The right is as follows.)
+where $\pi_n(x) = P'_n(x)$, $\tau_n(x)=x\pi_n(x)-(1-x^2) \pi'_n(x)$, and $P_n(x)$ is n-th order Legendre function.
 
-$\pi_n(\cos\theta) = -P_n^1(\cos\theta)/\sin\theta$, and $\tau_n(\cos\theta) = \text{d}P_n^1(\cos\theta)/\text{d}\theta$. Here $P_m^l$ is associate Legendre polynomials.
+Another formulas are, $\pi_n(\cos\theta) = P_n^1(\cos\theta)/\sin\theta$, and $\tau_n(\cos\theta) = \text{d}P_n^1(\cos\theta)/\text{d}\theta$. Here $P_m^l$ is associate Legendre polynomials.
 
 ### Legendre polynomials
 
@@ -59,7 +58,7 @@ $$
 \end{aligned}
 $$
 
-The same again, they are equivalent up to a negative sign. So in following sections we choose $\pi_n=P'_n$ and $\tau_n=-\mu P'_n+(1-\mu^2)P''_n$
+The same again, they are equivalent up to a negative sign. So in following sections we choose $\pi_n=P'_n$ and $\tau_n=\mu P'_n - (1-\mu^2)P''_n$
 
 ## Direct way
 
@@ -77,10 +76,10 @@ And also for $\tau_n(x)$:
 
 $$
 \begin{aligned}
-\tau_n(x) &= -x P'_n(x) + (1 - x^2) P''_n(x) \\[0.5em]
-&= -x P'_n(x) + \big(2x P'_n(x) - n(n+1)P_n(x)\big) \\[0.5em]
-&= x P'_n(x) - n(n+1)P_n(x) \\[0.5em]
-&= \frac{n(1+n-nx)}{x^2-1} P_n(x) - \frac{nx}{x^2-1}P_{n-1}(x)
+\tau_n(x) &= x P'_n(x) - (1 - x^2) P''_n(x) \\[0.5em]
+&= x P'_n(x) - \big(2x P'_n(x) - n(n+1)P_n(x)\big) \\[0.5em]
+&= -x P'_n(x) + n(n+1)P_n(x) \\[0.5em]
+&= -\frac{n(1+n-nx)}{x^2-1} P_n(x) + \frac{nx}{x^2-1}P_{n-1}(x)
 \end{aligned}
 $$
 
@@ -88,23 +87,57 @@ Since we know $P_0=1$ and $P_1=x$, we have all we needed to get start.
 
 ## Recurrent way
 
-Either Legendre polynomials $P_n(x)$ or Bessel functions $J_n(x)$ is recurrentable.
+Either Legendre polynomials $P_n(x)$ or Bessel functions $Z_n(x)$ ($Z$ can be $J$, $Y$, $H^{(1)}$, or $H^{(2)}$) is recurrentable.
 
 $$
 \begin{aligned}
 (n+1)P_{n+1} &= (2n+1) x P_n -n P_{n-1} \\[0.5em]
-J_{n+1} &= \frac{2n+1}{x} J_n - J_{n-1} \\[0.8em]
-J'_{n+1} &=  -\frac{n+1}{x}J_{n+1} + J_n .
+Z_{\alpha+1} &= \frac{2\alpha}{x} Z_\alpha - Z_{\alpha-1} \\[0.8em]
+Z'_{\alpha+1} &=  -\frac{\alpha+1}{x}Z_{\alpha+1} + Z_\alpha \text{ .}
 \end{aligned}
 $$
 
-Thus $\psi'$ can be written as,
+So $\psi$ can be computed recurrently,
+
+$$
+\begin{aligned}
+\psi_{n+1} &= \sqrt{\pi x / 2} J_{n+1+1/2}
+= \sqrt{\pi x / 2}\big(\frac{2n+1}{x}J_{n+1/2} - J_{n-1+1/2}\big) \\[0.8em]
+&= \frac{2n+1}{x}\psi_n - \psi_{n-1} \text{ .}
+\end{aligned}
+$$
+
+And $\psi'$ can be written as,
 
 $$
 \begin{aligned}
 \psi'_n &= \frac{\text{d}}{\text{d}x} \sqrt{\pi x/2} J_{n+1/2}(x) \\[0.5em]
 &= \sqrt{\frac{\pi}{8x}} \big(J_{n+1/2}(x) + 2xJ'_{n+1/2}(x) \big) \\[0.8em]
 &= \sqrt{\frac{\pi x}{2}} \big(-n/xJ_{n+1/2}(x) + J_{n-1/2}(x) \big) \\[0.8em]
-&= -\frac{n}{x}\psi_n + \psi_{n-1}
+&= -\frac{n}{x}\psi_n + \psi_{n-1} \text{ .}
+\end{aligned}
+$$
+
+Similarly, $\pi_n$ and $\tau_n$ are also recurrentable,
+
+$$
+\begin{aligned}
+\pi_{n+1} &= P'_{n+1} = (n+1) P_n + x P'_n = (2n+1) P_n + P'_{n-1}
+\end{aligned}
+$$
+
+thus,
+
+$$
+\pi_{n+1} = \frac{2n+1}{n} x\pi_n - \frac{n+1}{n} \pi_{n-1} \text{ .}
+$$
+
+And $\tau_n$ can be derivated from $\pi_n$,
+
+$$
+\begin{aligned}
+\tau_n &= x \pi_n - (1-x^2) \pi'_n \\
+&= x \pi_n - 2x \pi_n + n(n+1) P_n \\
+&= n x \pi_n - (n+1) \pi_{n-1}
 \end{aligned}
 $$
