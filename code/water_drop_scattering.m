@@ -4,6 +4,7 @@ p.addRequired('a', @(x) isnumeric(x) && isscalar(x));
 p.addRequired('lambda', @(x) isnumeric(x) && isvector(x));
 p.addRequired('theta', @(x) isnumeric(x) && isvector(x));
 p.addParameter('SunSize', 0.5, @(x) isnumeric(x) && isscalar(x));
+p.addParameter('Parallel', false, @(x) islogical(x) && isscalar(x));
 p.parse(a, lambda, theta, varargin{:});
 
 m = water_refractive_index(lambda);
@@ -16,9 +17,16 @@ if p.Results.SunSize > 0
 end
 
 intensity = zeros(length(theta), length(lambda));
-for i = 1:length(lambda)
-    curr_intensity = mie_theory_scattering(a, m(i), lambda(i), theta);
-    intensity(:, i) = curr_intensity;
+if p.Results.Parallel
+    parfor i = 1:length(lambda)
+        curr_intensity = mie_theory_scattering(a, m(i), lambda(i), theta);
+        intensity(:, i) = curr_intensity;
+    end
+else
+    for i = 1:length(lambda)
+        curr_intensity = mie_theory_scattering(a, m(i), lambda(i), theta);
+        intensity(:, i) = curr_intensity;
+    end
 end
 if p.Results.SunSize > 0
     intensity = imfilter(intensity, smoothing_kernel(:), 'same', 'symmetric');

@@ -1,22 +1,22 @@
 clear; close all; clc;
 
-dq = 0.02;
+dq = 0.01;
 theta_lim = [137, 145];
 theta = (theta_lim(1)-0.5:dq:theta_lim(2)+0.5)';
-a_store = 10.^(3:-.01:1);     % drop radii, in um
+a_store = 10.^(1:.002:3);     % drop radii, in um
 
 lee_diagram = zeros(length(theta), length(a_store), 3);
-for ai = 1:length(a_store)
+for ai = length(a_store):-1:1
     a = a_store(ai);
     fprintf('Computing a: %.2f, #%d/%d\n', a, ai, length(a_store));
 
-    lambda_num = max(floor(6000 / a), 30);
+    lambda_num = max(floor(100000 / a), 500);
     lambda = linspace(0.42, 0.68, lambda_num);   % in um
     dw = lambda(2) - lambda(1);
     sun_spec = colorvis.black_body_radiance(lambda * 1000, 5700);
     sun_spec = sun_spec / sum(sun_spec * dw);
 
-    intensity = water_drop_scattering(a, lambda, theta, 'SunSize', 0.5);
+    intensity = water_drop_scattering(a, lambda, theta, 'SunSize', 0.5, 'Parallel', true);
     % energy of each wavelength sums up to that portion of sun light
     intensity = intensity ./ sum(intensity * dw * dq) .* sun_spec;
     intensity = intensity ./ prctile(intensity(:), 95) * 5e-3;
@@ -55,5 +55,6 @@ ylabel('Scattering angle (degree)', 'fontsize', 16);
 drawnow;
 
 postfix = sprintf('a%04d-%04d_q%03d-%03d', min(a_store), max(a_store), theta_lim(1), theta_lim(2));
+theta_idx = theta >= theta_lim(1) & theta <= theta_lim(2);
 saveas(gcf, sprintf('../out/lee_diagram_%s.png', postfix));
-imwrite(uint8(lee_diagram * 256), sprintf('../out/lee_diagram_data_%s.png', postfix));
+imwrite(uint8(lee_diagram(theta_idx, :, :) * 256), sprintf('../out/lee_diagram_data_%s.png', postfix));
