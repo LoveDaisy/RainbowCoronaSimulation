@@ -9,7 +9,7 @@ b_n &= \frac{m\psi'_n(y)\psi_n(x)-\psi_n(y)\psi'_n(x)}{m\psi'_n(y)\zeta_n(x)-\ps
 \end{aligned}
 $$
 
-where $x = kr = 2\pi/\lambda r$ is size parameter, and $y = mx$. The first thing is to compute $\psi$ and $\zeta$, which are Ricatti-Bessel Neumann and Hankel functions. They are related to spherical Bessel functions,
+where $x = kr = 2\pi/\lambda r$ is size parameter, and $y = mx$. The first thing is to compute $\psi$ and $\zeta$, which are Riccati-Bessel Neumann and Hankel functions. They are related to spherical Bessel functions,
 
 $$
 \begin{aligned}

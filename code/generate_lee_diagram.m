@@ -13,7 +13,7 @@ dq = abs(theta(2) - theta(1));
 theta_lim = [min(theta), max(theta)];
 a_num = length(drop_radius);
 lee_diagram_data = zeros(length(theta), a_num, 3);
-if p.Results.IterateDir > 1
+if p.Results.IterateDir > 0
     ai_store = 1:a_num;
 else
     ai_store = a_num:-1:1;
