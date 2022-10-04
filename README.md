@@ -9,6 +9,8 @@ And half a century later, Lorenz, Mie and Debye derived the most accurate model,
 
 My simulation is based on Lorenz-Mie theory. See [Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering) for detail.
 And there is a [draft](Computation%20of%20Mie%20Theory.md) containing all mathematics.
+All colors are rendered with my [color science tools](https://github.com/LoveDaisy/ColorScienceUtils),
+which converts spectra into RGB colors.
 
 ## Rainbow
 
@@ -22,8 +24,6 @@ Lee [2] proposed a diagram that described the color changing with water drop siz
 
 ![rainbow Lee diagram](img/lee_137-145.png)
 
-The colors are rendered with my [color science tools](https://github.com/LoveDaisy/ColorScienceUtils), which converts spectra into RGB colors.
-
 ## Secondary rainbow
 
 Colors of secondary rainbow are very similar to primary rainbow, just line up in a reverse order.
@@ -35,6 +35,12 @@ In order to show colors clearly, I normalize them by max illuminance. They are i
 Also here is the Lee diagram for secondary rainbow,
 
 ![secondary rainbow Lee diagram](img/lee_123-131.png)
+
+If you enlarge the Lee diagram, you'll find some ripples on the flat area at left side. This mainly due to
+insufficient samples of wavelength. The smaller drop size is, the more wavelengths should be used.
+I've sampled about 10,000 samples evenly distributed between 0.42um and 0.68um for radius at 10um. For computation
+saving, I didn't sample more. From another point of view, it can be regarded as a kind of aliasing, indicating
+that there are high frequency components along wavelength domain.
 
 ## Corona
 
