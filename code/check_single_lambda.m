@@ -8,7 +8,7 @@ m = 1.332;
 theta = 137:dq:145;
 
 tic;
-intensity = mie_theory_scattering(a, m, lambda, theta);
+intensity = mie_scattering(a, m, lambda, theta);
 toc;
 
 %%

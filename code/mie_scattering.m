@@ -1,4 +1,4 @@
-function [intensity, Q_sct, Q_ext] = mie_theory_scattering(drop_radius, refractive_index, wavelength, theta, varargin)
+function intensity = mie_scattering(drop_radius, refractive_index, wavelength, theta, varargin)
 % Ricatti Bessel function of first and second kind
 %   psi_n(z) = sqrt(pi * z / 2) * J_{n+1/2}(z)
 %   chi_n(z) = (-1)^n * sqrt(pi * z / 2) * J_{-(n+1/2)}(z)
@@ -24,9 +24,9 @@ x = 2 * pi ./ wavelength * drop_radius;
 y = refractive_index * x;
 
 if ~isempty(varargin) && ischar(varargin{1}) && strcmpi(varargin{1}, 'direct')
-    [intensity, Q_sct, Q_ext] = direct_method(x, y, refractive_index, theta);
+    intensity = direct_method(x, y, refractive_index, theta);
 else
-    [intensity, Q_sct, Q_ext] = iterate_method(x, y, refractive_index, theta);
+    intensity = iterate_method(x, y, refractive_index, theta);
 end
 end
 

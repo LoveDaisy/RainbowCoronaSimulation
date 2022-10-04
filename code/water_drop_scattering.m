@@ -19,12 +19,12 @@ end
 intensity = zeros(length(theta), length(lambda));
 if p.Results.Parallel
     parfor i = 1:length(lambda)
-        curr_intensity = mie_theory_scattering(a, m(i), lambda(i), theta);
+        curr_intensity = mie_scattering(a, m(i), lambda(i), theta);
         intensity(:, i) = curr_intensity;
     end
 else
     for i = 1:length(lambda)
-        curr_intensity = mie_theory_scattering(a, m(i), lambda(i), theta);
+        curr_intensity = mie_scattering(a, m(i), lambda(i), theta);
         intensity(:, i) = curr_intensity;
     end
 end
