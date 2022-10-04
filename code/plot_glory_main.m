@@ -2,7 +2,7 @@ clear; close all; clc;
 
 dq = 0.01;
 theta = (170:dq:180)';
-a_store = [2, 5, 10, 20];
+a_store = [5, 10, 20, 50];
 
 %%
 figure(1); clf;
@@ -10,14 +10,12 @@ set(gcf, 'Position', [50, 500, 900, 450]);
 
 for ai = 1:length(a_store)
     a = a_store(ai);
-
-    lambda_num = max(floor(10000 / a), 50);
-    lambda = linspace(0.4, 0.68, lambda_num);   % in um
+    
+    [intensity, lambda] = water_drop_scattering(a, [0.42, 0.68], theta, 'AdaptiveLambda', true);
     dw = lambda(2) - lambda(1);
     sun_spec = colorvis.black_body_radiance(lambda * 1000, 5700);
     sun_spec = sun_spec / sum(sun_spec * dw);
 
-    intensity = water_drop_scattering(a, lambda, theta);
     intensity = intensity ./ sum(intensity * dw * dq) .* sun_spec;
     intensity = intensity ./ prctile(intensity(:), 100) * 20e-3;
 
@@ -42,7 +40,7 @@ ylabel('Radius (um)', 'fontsize', 16, 'color', 'k', 'Visible', 'on');
 saveas(gcf, '../img/glory_radius_angle.png');
 
 %%
-lee_diagram_img = imread('../img/lee_diagram_data_a0001-0021_q170-180.png');
+lee_diagram_img = imread('../img/lee_diagram_data_a0005-0100_q170-180.png');
 theta_num = size(lee_diagram_img, 1);
 a_num = size(lee_diagram_img, 2);
 

@@ -3,7 +3,7 @@ p = inputParser;
 p.addRequired('drop_radius', @(x) isnumeric(x) && isvector(x));
 p.addRequired('theta', @(x) isnumeric(x) && isvector(x));
 p.addParameter('SunSize', 0.5, @(x) isnumeric(x) && isscalar(x));
-p.addParameter('WSampleFactor', 1, @(x) isnumeric(x) && isscalar(x));
+p.addParameter('LambdaRelErr', 0.1, @(x) isnumeric(x) && isscalar(x));
 p.addParameter('IntensityFactor', [95, 1], @(x) isnumeric(x) && isvector(x) && length(x) == 2);
 p.addParameter('IterateDir', 1, @(x) isnumeric(x) && isscalar(x));
 p.addParameter('Debug', false, @(x) islogical(x) && isscalar(x));
@@ -22,13 +22,14 @@ for ai = ai_store
     a = drop_radius(ai);
     fprintf('Computing a: %.2f, #%d/%d\n', a, ai, a_num);
 
-    lambda_num = max(floor(5000 * p.Results.WSampleFactor / a), floor(20 * p.Results.WSampleFactor));
-    lambda = linspace(0.42, 0.68, lambda_num);   % in um
+    [intensity, lambda] = water_drop_scattering(a, [0.42, 0.68], theta, 'SunSize', p.Results.SunSize, ...
+        'LambdaRelErr', p.Results.LambdaRelErr, 'AdaptiveLambda', true, 'Parallel', true);
+    fprintf('  sample lambda: %d\n', length(lambda));
+
     dw = lambda(2) - lambda(1);
     sun_spec = colorvis.black_body_radiance(lambda * 1000, 5700);
     sun_spec = sun_spec / sum(sun_spec * dw);
 
-    intensity = water_drop_scattering(a, lambda, theta, 'SunSize', p.Results.SunSize, 'Parallel', true);
     % energy of each wavelength sums up to that portion of sun light
     intensity = intensity ./ sum(intensity * dw * dq) .* sun_spec;
     intensity = intensity ./ prctile(intensity(:), p.Results.IntensityFactor(1)) * 5e-3 * p.Results.IntensityFactor(2);
