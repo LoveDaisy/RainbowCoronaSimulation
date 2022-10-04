@@ -8,7 +8,7 @@ Then Airy improved the theory by taking difraction into account one and a half c
 And half a century later, Lorenz, Mie and Debye derived the most accurate model, which is often called Lorenz-Mie theory and Deby series.
 
 My simulation is based on Lorenz-Mie theory. See [Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering) for detail.
-And there is a [draft](Computation%20of%20Mie%20Theory.md) containing all mathematics.
+And there is a draft [Computation of Mie Theory](Computation%20of%20Mie%20Theory.md) containing all mathematics.
 All colors are rendered with my [color science tools](https://github.com/LoveDaisy/ColorScienceUtils),
 which converts spectra into RGB colors.
 
