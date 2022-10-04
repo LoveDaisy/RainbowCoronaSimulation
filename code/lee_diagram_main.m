@@ -3,7 +3,7 @@ clear; close all; clc;
 dq = 0.02;
 theta_lim = [170, 180];
 theta = (theta_lim(1)-0.5:dq:theta_lim(2)+0.5)';
-a_store = 10.^(log10(5):.002:log10(101));     % drop radii, in um
+a_store = 10.^(log10(5):.002:log10(100.4));     % drop radii, in um
 
 figure(1); clf;
 set(gcf, 'Position', [500, 20, 500, 800]);

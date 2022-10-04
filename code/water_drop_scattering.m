@@ -54,7 +54,7 @@ end
     
 rel_err = inf;
 dw = lambda0(2) - lambda0(1);
-while rel_err > rel_err_lim && dw > 0.0001
+while rel_err > rel_err_lim && dw > 0.0002
     lambda1 = (lambda0(1:end-1) + lambda0(2:end)) / 2;
     intensity1 = zeros(length(theta), length(lambda1));
     if ~parallel
