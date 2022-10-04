@@ -21,6 +21,18 @@ Lee [2] proposed a diagram that described the color changing with water drop siz
 
 ![rainbow Lee diagram](img/lee_137-145.png)
 
+The colors are rendered with my [color science tools](https://github.com/LoveDaisy/ColorScienceUtils), which converts spectra into RGB colors.
+
+## Secondary rainbow
+
+Colors of secondary rainbow are very similar to primary rainbow, just line in a verse order.
+
+![secondary rainbow and drop size](img/sencondary_rainbow_radius_angle.png)
+
+In order to show colors clearly, I normalize them by max illuminance. They are in fact much fainter than primary rainbow.
+
+## Corona
+
 ## Reference
 
 [1] Laven, Philip. "Simulation of rainbows, coronas, and glories by use of Mie theory." Applied optics 42.3 (2003): 436-444.

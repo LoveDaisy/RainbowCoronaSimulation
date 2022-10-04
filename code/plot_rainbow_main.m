@@ -53,7 +53,7 @@ imagesc((0:a_num-1)/(a_num-1)*2 + 1, (0:theta_num-1)/(theta_num-1)*8 + 137, lee_
 axis off;
 axes('Position', [0.1, 0.12, 0.85, 0.85], 'Color', 'none');
 box on;
-set(gca, 'ylim', [137, 145], 'xlim', [10, 1000]/1000, 'xscale', 'log', 'tickdir', 'out', ...
+set(gca, 'ylim', [137, 145], 'ydir', 'reverse', 'xlim', [10, 1000]/1000, 'xscale', 'log', 'tickdir', 'out', ...
     'fontsize', 12);
 xlabel('Radius (mm)', 'fontsize', 16);
 ylabel('Scattering angle (degree)', 'fontsize', 16);
