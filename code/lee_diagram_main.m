@@ -54,7 +54,7 @@ xlabel('Radius (mm)', 'fontsize', 16);
 ylabel('Scattering angle (degree)', 'fontsize', 16);
 drawnow;
 
-postfix = sprintf('a%04d-%04d_q%03d-%03d', min(a_store), max(a_store), theta_lim(1), theta_lim(2));
+postfix = sprintf('a%04d-%04d_q%03d-%03d', round(min(a_store)), round(max(a_store)), theta_lim(1), theta_lim(2));
 theta_idx = theta >= theta_lim(1) & theta <= theta_lim(2);
 saveas(gcf, sprintf('../out/lee_diagram_%s.png', postfix));
 imwrite(uint8(lee_diagram(theta_idx, :, :) * 256), sprintf('../out/lee_diagram_data_%s.png', postfix));

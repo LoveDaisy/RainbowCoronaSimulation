@@ -8,6 +8,7 @@ Then Airy improved the theory by taking difraction into account one and a half c
 And half a century later, Lorenz, Mie and Debye derived the most accurate model, which is often called Lorenz-Mie theory and Deby series.
 
 My simulation is based on Lorenz-Mie theory. See [Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering) for detail.
+And there is a [draft](Computation%20of%20Mie%20Theory.md) containing all mathematics.
 
 ## Rainbow
 
@@ -25,7 +26,7 @@ The colors are rendered with my [color science tools](https://github.com/LoveDai
 
 ## Secondary rainbow
 
-Colors of secondary rainbow are very similar to primary rainbow, just line in a reverse order.
+Colors of secondary rainbow are very similar to primary rainbow, just line up in a reverse order.
 
 ![secondary rainbow and drop size](img/sencondary_rainbow_radius_angle.png)
 
@@ -39,6 +40,14 @@ Also here is the Lee diagram for secondary rainbow,
 
 Corona is often produced by high clouds. The particles in high clouds are much smaller than rain drops. This leads to more diffraction effects than case of rainbow.
 Similarly, with particle size goes smaller, the colors become more spread.
+
+![corona and drop size](img/corona_radius_angle.png)
+
+To display the faint colors of corona clearly, I amplify the intensity by factor of 4, so the bright parts are over saturated to white. The same to the Lee diagram.
+
+![corona Lee diagram](img/lee_000-010.png)
+
+Suprisingly, there are *stripes* on Lee diagram when particle size is very small.
 
 ## Reference
 
