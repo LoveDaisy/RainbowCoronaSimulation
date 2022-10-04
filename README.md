@@ -25,13 +25,20 @@ The colors are rendered with my [color science tools](https://github.com/LoveDai
 
 ## Secondary rainbow
 
-Colors of secondary rainbow are very similar to primary rainbow, just line in a verse order.
+Colors of secondary rainbow are very similar to primary rainbow, just line in a reverse order.
 
 ![secondary rainbow and drop size](img/sencondary_rainbow_radius_angle.png)
 
 In order to show colors clearly, I normalize them by max illuminance. They are in fact much fainter than primary rainbow.
 
+Also here is the Lee diagram for secondary rainbow,
+
+![secondary rainbow Lee diagram](img/lee_123-131.png)
+
 ## Corona
+
+Corona is often produced by high clouds. The particles in high clouds are much smaller than rain drops. This leads to more diffraction effects than case of rainbow.
+Similarly, with particle size goes smaller, the colors become more spread.
 
 ## Reference
 
